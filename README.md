@@ -19,7 +19,7 @@ cd pb/docker && docker-compose up -d
 docker exec -it <container_name> bash 
 ```
 ```sh
-composer create-project yiisoft/yii2-app-basic /app
+composer install
 ```
 
 ### Enter pa container and execute deamon
