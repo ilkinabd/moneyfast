@@ -1,0 +1,22 @@
+version: "2.2"
+
+services:
+  payment_system_php:
+    extends:
+      file: pa/docker/docker-compose.yml
+      service: php_a
+
+  payment_system_web:
+    extends:
+      file: pa/docker/docker-compose.fpm-nginx.yml
+      service: web_a
+
+  payment_accept_php:
+    extends:
+      file: pb/docker/docker-compose.yml
+      service: php_b
+
+  payment_accept_web:
+    extends:
+      file: pb/docker/docker-compose.fpm-nginx.yml
+      service: web_b
