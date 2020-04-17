@@ -27,7 +27,7 @@ class DeamonService extends BaseObject implements DeamonServiceInterface
             'id' => $timeStamp,
             'sum' => rand(10, 500),
             'comission' => rand(5, 20) / 10,
-            'order_number' => rand(1, 20),
+            'user_id' => rand(1, 20),
             'signature' => ''
         ];
 

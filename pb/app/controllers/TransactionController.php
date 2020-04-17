@@ -2,9 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Transaction;
 use yii\rest\ActiveController;
 
-class UserController extends ActiveController
+class TransactionController extends ActiveController
 {
-    public $modelClass = 'app\models\User';
+    public $modelClass = Transaction::class;
 }
