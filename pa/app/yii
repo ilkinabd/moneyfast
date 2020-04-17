@@ -8,9 +8,6 @@
  * @license http://www.yiiframework.com/license/
  */
 
-use app\components\DeamonService;
-use app\components\DeamonServiceInterface;
-
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 

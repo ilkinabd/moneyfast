@@ -1,10 +1,5 @@
 <?php
 
-use app\components\DeamonService;
-use app\components\DeamonServiceInterface;
-use yii2tech\filestorage\local\Storage;
-use yii\httpclient\Client;
-
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -26,32 +21,11 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['info', 'error', 'warning'],
+                    'levels' => ['error', 'warning'],
                 ],
             ],
         ],
         'db' => $db,
-    ],
-    'container' => [
-        'definitions' => [
-            DeamonServiceInterface::class => [
-                'class' => DeamonService::class
-            ],
-            Client::class => ['class' => Client::class],
-            Storage::class => [
-                'class' => Storage::class,
-                'basePath' => '@app/files',
-                'baseUrl' => '@app/files',
-                'dirPermission' => 0775,
-                'filePermission' => 0755,
-                'buckets' => [
-                    'dataFiles' => [
-                        'baseSubPath' => 'temp',
-                        // 'fileSubDirTemplate' => '{^name}/{^^name}',
-                    ]
-                ]
-            ],
-        ]
     ],
     'params' => $params,
     /*
