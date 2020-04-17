@@ -22,7 +22,7 @@ class DeamonController extends Controller
         echo 'STARTING DEAMON' . PHP_EOL;
         while (true) {
             $this->deamonService->handle();
-            sleep(3);
+            sleep(20);
         }
     }
 }

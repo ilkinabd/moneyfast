@@ -1,5 +1,10 @@
 <?php
 
+use app\components\DeamonService;
+use app\components\DeamonServiceInterface;
+use yii2tech\filestorage\local\Storage;
+use yii\httpclient\Client;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -28,6 +33,33 @@ $config = [
         'db' => $db,
     ],
     'params' => $params,
+    'container' => [
+        'definitions' => [
+            Storage::class => [
+                'class' => Storage::class,
+                'basePath' => '@app/files',
+                'baseUrl' => '@app/files',
+                'dirPermission' => 0775,
+                'filePermission' => 0755,
+                'buckets' => [
+                    'dataFiles' => [
+                        'baseSubPath' => 'data',
+                        // 'fileSubDirTemplate' => '{^name}/{^^name}',
+                    ],
+                    // 'imageFiles' => [
+                    //     'baseSubPath' => 'image',
+                    //     'fileSubDirTemplate' => '{ext}/{^name}/{^^name}',
+                    // ],
+                ]
+            ],
+            DeamonServiceInterface::class => [
+                'class' => DeamonService::class
+            ],
+            Client::class => [
+                'class' => Client::class
+            ]
+        ]
+    ]
     /*
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.
