@@ -1,5 +1,12 @@
 <?php
 
+use app\components\DeamonService;
+use app\components\DeamonServiceInterface;
+use app\components\DigitalSignService;
+use app\components\DigitalSignServiceInterface;
+use app\components\TransactionService;
+use app\components\TransactionServiceInterface;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -10,6 +17,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@keys' => '@app/keys'
     ],
     'components' => [
         'request' => [
@@ -63,9 +71,23 @@ $config = [
                 ]
             ],
         ],
-
     ],
     'params' => $params,
+    'container' => [
+        'definitions' => [
+            DeamonServiceInterface::class => [
+                'class' => DeamonService::class,
+            ],
+            TransactionServiceInterface::class => [
+                'class' => TransactionService::class
+            ],
+            DigitalSignServiceInterface::class => [
+                'class' => DigitalSignService::class,
+                'privateKey' => '@keys/private_key.txt',
+                'publicKey' => '@keys/public_key.txt'
+            ]
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {
