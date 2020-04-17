@@ -2,6 +2,8 @@
 
 use app\components\DeamonService;
 use app\components\DeamonServiceInterface;
+use app\components\DigitalSignService;
+use app\components\DigitalSignServiceInterface;
 use yii2tech\filestorage\local\Storage;
 use yii\httpclient\Client;
 
@@ -17,6 +19,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
+        '@keys' => '@app/keys'
     ],
     'components' => [
         'cache' => [
@@ -57,6 +60,11 @@ $config = [
             ],
             Client::class => [
                 'class' => Client::class
+            ],
+            DigitalSignServiceInterface::class => [
+                'class' => DigitalSignService::class,
+                'privateKey' => '@keys/private_key.txt',
+                'publicKey' => '@keys/public_key.txt'
             ]
         ]
     ]

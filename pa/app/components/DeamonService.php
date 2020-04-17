@@ -12,8 +12,10 @@ class DeamonService extends BaseObject implements DeamonServiceInterface
 {
     private $client;
     private $bucket;
-    public function __construct(Storage $storage, Client $client)
+    private $digitalSignService;
+    public function __construct(Storage $storage, Client $client, DigitalSignServiceInterface $digitalSignService)
     {
+        $this->digitalSignService = $digitalSignService;
         $this->bucket = $storage->getBucket('dataFiles');
         $this->client = $client;
     }
@@ -25,11 +27,19 @@ class DeamonService extends BaseObject implements DeamonServiceInterface
             'id' => $timeStamp,
             'sum' => rand(10, 500),
             'comission' => rand(5, 20) / 10,
-            'order_number' => rand(1, 20)
+            'order_number' => rand(1, 20),
+            'signature' => ''
         ];
 
-        $this->bucket->saveFileContent($timeStamp . 'data', json_encode($randomData));
+        $rawData = json_encode($randomData);
+        $this->bucket->saveFileContent($timeStamp . '.data', $rawData);
 
+        $binary = $this->digitalSignService->sign($rawData);
+        $signature = base64_encode($binary);
+        $randomData['signature'] = $signature;
+
+        // $ok = $this->digitalSignService->verify(json_encode($randomData), $signature);
+        // echo $ok;
         $response = $this->client->createRequest()
             ->setMethod('POST')
             ->setUrl('http://example.com/api/1.0/users')
