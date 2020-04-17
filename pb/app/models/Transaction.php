@@ -9,9 +9,6 @@ use yii\db\ActiveRecord;
 
 class Transaction extends ActiveRecord
 {
-    public $comission;
-    public $signature;
-
     /**
      * @return string название таблицы, сопоставленной с этим ActiveRecord-классом.
      */
@@ -24,13 +21,10 @@ class Transaction extends ActiveRecord
     {
         return [
 
-            [['transaction_id', 'sum', 'user_id', 'comission', 'signature'], 'required'],
+            [['transaction_id', 'sum', 'user_id', 'comission'], 'required'],
 
             [['transaction_id', 'user_id'], 'integer'],
-
-            [['sum', 'comission'], 'double'],
-
-            // ['signature', 'verifySignature']
         ];
     }
+    
 }

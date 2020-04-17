@@ -24,17 +24,17 @@ class DeamonService extends BaseObject implements DeamonServiceInterface
     {
         $timeStamp = (new DateTime)->getTimestamp();
         $randomData = [
-            'id' => $timeStamp,
-            'sum' => rand(10, 500),
-            'comission' => rand(5, 20) / 10,
-            'user_id' => rand(1, 20),
-            'signature' => ''
+            'transaction_id' => $timeStamp . '',
+            'sum' => rand(10, 500) . '',
+            'comission' => (rand(5, 20) / 10) . '',
+            'user_id' => rand(1, 20) . '',
         ];
-
+        ksort($randomData);
         $rawData = json_encode($randomData);
         $this->bucket->saveFileContent($timeStamp . '.data', $rawData);
 
         $binary = $this->digitalSignService->sign($rawData);
+        // echo $rawData;
         $signature = base64_encode($binary);
         $randomData['signature'] = $signature;
 
@@ -42,9 +42,11 @@ class DeamonService extends BaseObject implements DeamonServiceInterface
         // echo $ok;
         $response = $this->client->createRequest()
             ->setMethod('POST')
-            ->setUrl('http://example.com/api/1.0/users')
+            ->setUrl('http://192.168.0.5/transactions')
             ->setData($randomData)
             ->send();
+
+        echo $response->content . PHP_EOL;
 
         if ($response->isOk) {
             echo 'HANDLE FINISH' . PHP_EOL;

@@ -26,18 +26,12 @@ class TransactionController extends Controller
 
     public function actionCreate()
     {
-        $transactionModel = new Transaction();
         $inputData = Yii::$app->request->post();
-        $binary = base64_decode($inputData['signature']);
-        unset($inputData['signature']);
-        ksort($inputData);
-        $rawData = json_encode($inputData);
-        $ok = $this->digitalSignService->verify($rawData, $binary);
-        if ($ok !== 1) {
-            $transactionModel->addError('signature', 'Invalid signature');
-            return $transactionModel;
-        }
-        $transactionModel->setAttributes($inputData);
-        return $this->transactionService->create($transactionModel);
+        return $this->transactionService->create($inputData);
+    }
+
+    public function actionIndex()
+    {
+        return $this->transactionService->list();
     }
 }

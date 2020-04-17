@@ -7,4 +7,5 @@ use app\models\Transaction;
 interface TransactionServiceInterface
 {
     public function create(Transaction $transaction);
+    public function list();
 }

@@ -16,7 +16,8 @@ class m200417_085859_create_transactions_table extends Migration
             'id' => $this->primaryKey(),
             'transaction_id' => $this->integer()->notNull(),
             'sum' => $this->decimal(6, 2)->notNull(),
-            'user_id' => $this->integer()->notNull()
+            'user_id' => $this->integer()->notNull(),
+            'comission' => $this->decimal(6, 2)->notNull()
         ]);
     }
 

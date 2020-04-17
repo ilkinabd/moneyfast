@@ -13,7 +13,6 @@ class DigitalSignService extends BaseObject implements DigitalSignServiceInterfa
     public function __construct($config = [])
     {
         parent::__construct($config);
-        var_dump($config);
     }
 
     public function setPrivateKey($privateKey)
@@ -34,7 +33,6 @@ class DigitalSignService extends BaseObject implements DigitalSignServiceInterfa
 
     public function verify($data, $signature)
     {
-        var_dump($data, $signature);
         return openssl_verify($data, $signature, $this->publicKey, OPENSSL_ALGO_SHA1);
     } 
 
