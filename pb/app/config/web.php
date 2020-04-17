@@ -55,6 +55,11 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'transaction',
                     'except' => ['delete', 'update'],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'userwallet',
+                    'except' => ['delete', 'update'],
                 ]
             ],
         ],

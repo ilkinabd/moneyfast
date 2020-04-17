@@ -27,13 +27,12 @@ class Transaction extends ActiveRecord
         ];
     }
 
-    public function fields()
+    public function beforeSave($insert)
     {
-        $fields = parent::fields();
-        $fields['sum'] = function (Transaction $model) {
-            return $model->sum - ($model->sum * $model->comission / 100);
-        };
-        return $fields;
+        $sum = $this->getAttribute('sum');
+        $comission = $this->comission;
+        $this->setAttribute('sum', $sum - ($sum * $comission / 100));
+        return true;
     }
 
     public function afterSave($insert, $changedAttributes)

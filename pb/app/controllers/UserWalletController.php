@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\UserWallet;
 use yii\rest\ActiveController;
 
-class UserWalletController extends ActiveController
+class UserwalletController extends ActiveController
 {
-    public $modelClass = UserWallet::class;
+    public $modelClass = Userwallet::class;
 }

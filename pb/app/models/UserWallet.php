@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class UserWallet extends ActiveRecord
+class Userwallet extends ActiveRecord
 {
     /**
      * @return string название таблицы, сопоставленной с этим ActiveRecord-классом.
