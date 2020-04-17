@@ -16,6 +16,8 @@ services:
       # Application testing
       - ./../app:/app:delegated
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
+    networks:
+      - dockernet
 
   pb_web:
     image: phundament/nginx-one:1.9-5.1.1
@@ -26,5 +28,12 @@ services:
     volumes:
       # Application testing
       - ./../app/web:/app/web:delegated
+    networks:
+      dockernet:
+        ipv4_address: 192.168.0.5
     depends_on:
       - pb_php
+
+networks:
+  dockernet:
+    external: true

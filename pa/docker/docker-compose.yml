@@ -12,6 +12,8 @@ services:
       - GITHUB_API_TOKEN=${GITHUB_API_TOKEN}
       - PHP_ENABLE_XDEBUG
       - TEST_RUNTIME_PATH=/tmp/runtime
+    networks: 
+      - dockernet
     volumes:
       # Application testing
       - ./../app:/app:delegated
@@ -26,5 +28,12 @@ services:
     volumes:
       # Application testing
       - ./../app/web:/app/web:delegated
-    depends_on: 
+    networks: 
+      dockernet:
+        ipv4_address: 192.168.0.3
+    depends_on:
       - pa_php
+
+networks:
+  dockernet:
+    external: true
