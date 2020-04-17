@@ -22,6 +22,14 @@ docker exec -it <container_name> bash
 composer install
 ```
 
+### Make migration in pb_php container 
+```sh
+docker exec -it <container_name> bash 
+```
+```sh
+yii migrate
+```
+
 ### Enter pa container and execute deamon
 ```sh
 yii deamon
