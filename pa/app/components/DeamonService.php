@@ -30,11 +30,14 @@ class DeamonService extends BaseObject implements DeamonServiceInterface
 
         $this->bucket->saveFileContent($timeStamp . 'data', json_encode($randomData));
 
-        $this->client->createRequest()
+        $response = $this->client->createRequest()
             ->setMethod('POST')
             ->setUrl('http://example.com/api/1.0/users')
-            ->setData($randomData);
+            ->setData($randomData)
+            ->send();
 
-        echo 'handle' . PHP_EOL;
+        if ($response->isOk) {
+            echo 'HANDLE FINISH' . PHP_EOL;
+        }
     }
 }
