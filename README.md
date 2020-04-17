@@ -30,7 +30,10 @@ docker exec -it <container_name> bash
 yii migrate
 ```
 
-### Enter pa container and execute deamon
+### Enter pa_php container and execute deamon
+```sh
+docker exec -it <container_name> bash 
+```
 ```sh
 yii deamon
 ```
