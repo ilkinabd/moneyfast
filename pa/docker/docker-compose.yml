@@ -1,6 +1,6 @@
 version: "2.2"
 services:
-  php:
+  pa_php:
     build:
       dockerfile: Dockerfile-${DOCKERFILE_FLAVOUR}
       context: "php"
@@ -17,12 +17,14 @@ services:
       - ./../app:/app:delegated
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
 
-  web:
+  pa_web:
     image: phundament/nginx-one:1.9-5.1.1
     environment:
-      - FASTCGI_PASS_HOST=php
+      - FASTCGI_PASS_HOST=pa_php
     ports:
       - "8100:80"
     volumes:
       # Application testing
       - ./../app/web:/app/web:delegated
+    depends_on: 
+      - pa_php
